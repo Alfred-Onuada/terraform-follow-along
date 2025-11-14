@@ -9,6 +9,17 @@ terraform {
   }
 }
 
+# can be passed via CLI or tfvars file
+variable "instance_type" {
+  type = string
+}
+
+# this ones are harcorded and can't be passed in from CLI
+locals {
+  environment  = "Development"
+  service_name = "MyServerInstance"
+}
+
 provider "aws" {
   profile = "terraform"
   region  = "eu-north-1"
@@ -16,9 +27,10 @@ provider "aws" {
 
 resource "aws_instance" "my_server" {
   ami           = "ami-0c7d68785ec07306c"
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
 
   tags = {
-    Name = "MyServerInstance"
+    Name        = local.service_name
+    Environment = local.environment
   }
 }
