@@ -1,19 +1,3 @@
-terraform {
-  required_version = "1.13.5"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "6.20.0"
-    }
-  }
-}
-
-# can be passed via CLI or tfvars file
-variable "instance_type" {
-  type = string
-}
-
 # this ones are harcorded and can't be passed in from CLI
 locals {
   environment  = "Development"
@@ -53,9 +37,4 @@ module "vpc" {
     Terraform   = "true"
     Environment = "dev"
   }
-}
-
-# this creates an output of name instance_ip_addr with value of the public IP of the created instance
-output "instance_ip_addr" {
-  value = aws_instance.my_server.public_ip
 }
