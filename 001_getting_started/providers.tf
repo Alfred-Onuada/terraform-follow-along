@@ -1,5 +1,13 @@
 terraform {
-  required_version = "1.13.5"
+  backend "remote" {
+    organization = "alfred-account"
+
+    workspaces {
+      name = "terraform-follow-along"
+    }
+  }
+
+  required_version = "1.14.0"
 
   required_providers {
     aws = {
